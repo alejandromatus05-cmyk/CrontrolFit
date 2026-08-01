@@ -1,19 +1,33 @@
 const pool = require('../config/db');
 
+// READ: Obtener todos los socios
 const getAllMembers = async () => {
-    const [rows] = await pool.query('SELECT * FROM members ORDER BY created_at DESC');
-    return rows;
+  const [rows] = await pool.query('SELECT * FROM socios ORDER BY fecha_registro DESC');
+  return rows;
 };
 
-const createMember = async (name, email, phone) => {
-    const [result] = await pool.query(
-        'INSERT INTO members (name, email, phone) VALUES (?, ?, ?)',
-        [name, email, phone]
-    );
-    return { id: result.insertId, name, email, phone };
+// CREATE: Insertar un nuevo socio
+const createMember = async (data) => {
+  const { nombre, apellido, correo, telefono, sexo, fecha_registro } = data;
+
+  const [result] = await pool.query(
+    'INSERT INTO socios (nombre, apellido, correo, telefono, sexo, fecha_registro, estado) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    [nombre, apellido, correo, telefono, sexo, fecha_registro, 'activo']
+  );
+
+  return { 
+    id_socio: result.insertId, 
+    nombre, 
+    apellido, 
+    correo, 
+    telefono, 
+    sexo, 
+    fecha_registro, 
+    estado: 'activo' 
+  };
 };
 
 module.exports = {
-    getAllMembers,
-    createMember
+  getAllMembers,
+  createMember
 };

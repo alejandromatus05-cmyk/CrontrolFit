@@ -1,8 +1,10 @@
-const { Router } = require('express');
-const { getStatus } = require('../controllers/main.controller');
+const express = require('express');
+const router = express.Router();
+const mainController = require('../controllers/main.controller');
 
-const router = Router();
+router.post('/login', mainController.login);
+router.get('/dashboard', mainController.getDashboard);
+router.get('/membresias', mainController.getMembresias);
 
-router.get('/status', getStatus);
 
 module.exports = router;

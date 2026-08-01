@@ -1,0 +1,20 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #121216;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  background-color: #121216;
+  padding: 30px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
