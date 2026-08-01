@@ -13,10 +13,8 @@ export default function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState(null);
   
-  // Mantiene la pestaña actual guardada en el navegador al recargar (F5)
-  const [activePage, setActivePage] = useState(() => {
-    return localStorage.getItem('activeGymPage') || 'dashboard';
-  });
+  // Inicia siempre en 'dashboard' tras el login o al iniciar por primera vez
+  const [activePage, setActivePage] = useState('dashboard');
   
   const [loadingApp, setLoadingApp] = useState(true);
 
@@ -50,6 +48,7 @@ export default function App() {
       localStorage.removeItem('activeGymPage');
       setUser(null);
       setIsAuth(false);
+      setActivePage('dashboard');
     }
   };
 
@@ -66,12 +65,13 @@ export default function App() {
           localStorage.setItem('usuarioGym', JSON.stringify(userData));
           setUser(userData);
           setIsAuth(true);
+          setActivePage('dashboard');
         }}
       />
     );
   }
 
-  // Si ya inició sesión, renderiza el panel administrativo completo
+  // Si ya inició sesión, renderiza el panel administrativo completo abriendo primero el Dashboard
   return (
     <div className="app-container">
       <Sidebar setActivePage={handlePageChange} setAuth={handleLogout} />
